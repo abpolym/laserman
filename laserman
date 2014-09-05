@@ -1,0 +1,12 @@
+#!/bin/bash
+MP3=(); for i in mp3/*.mp3; do MP3+=("$i"); done
+NMP3=${#MP3[@]}
+mplayer mp3/background/*.mp3 -loop 0 -af volume=+5 &>/dev/null &
+MPID=$!
+stdbuf -o0 showkey -a 2>/dev/null | while read line; do
+	[ -z "$line" ] || ! [[ $line =~ ^[0-9] ]] && continue
+	NUM="$(echo "$line" | awk '{print $1}')"
+	mplayer "${MP3[$(($NUM % $NMP3))]}" -af volume=-10 &>/dev/null &
+done
+echo
+kill $MPID
