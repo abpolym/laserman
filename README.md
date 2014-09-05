@@ -14,5 +14,5 @@ Tools needed
 Play!
 -----
 
-To start laserman, just type in "bash laserman" or "./laserman"
-To quit laserman, just press CTRL + d.
+To start laserman, just type in `bash laserman` or `./laserman`
+To quit laserman, just press <kbd>CTRL</kbd>+<kbd>d</kbd>.
