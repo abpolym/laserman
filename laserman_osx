@@ -1,0 +1,12 @@
+#!/bin/bash
+MP3=(); for i in mp3/*.mp3; do MP3+=("$i"); done
+NMP3=${#MP3[@]}
+mplayer mp3/background/*.mp3 -loop 0 -af volume=+5 &>/dev/null &
+MPID=$!
+while read -sn1 key; do
+	key=`echo "$key" | iconv -f utf-8 -t us-ascii//TRANSLIT`
+	NUM=`LC_CTYPE=C printf '%d' "'$key"`
+	mplayer "${MP3[$(($NUM % $NMP3))]}" -af volume=-10 &>/dev/null &
+done &> /dev/null
+echo
+kill $MPID
